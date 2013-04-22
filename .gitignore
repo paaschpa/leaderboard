@@ -12,4 +12,3 @@ _ReSharper.*
 *.resharper
 *.sln.cache
 .sass-cache/
-*.Release.config

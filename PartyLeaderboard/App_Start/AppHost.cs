@@ -29,7 +29,7 @@ namespace PartyLeaderboard.App_Start
 			//Set JSON web services to return idiomatic JSON camelCase properties
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 
-		    var connectionString = ConfigurationManager.ConnectionStrings["LeaderBoard"].ToString();
+            var connectionString = ConfigurationManager.ConnectionStrings["conString"].ToString();
             Register<IDbConnectionFactory>(new OrmLiteConnectionFactory(connectionString, SqlServerDialect.Provider));
 
 			//Set MVC to use the same Funq IOC as ServiceStack
