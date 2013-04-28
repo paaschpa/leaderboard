@@ -21,5 +21,10 @@ namespace PartyLeaderboard.Controllers
         {
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script src='@Href("/Content/js/app/party.js")'></script>
+<div ng-app>
+    <div ng-controller="PartyCtrl">
+        <div id="error" class="hidden">
+            <p class="text-error">NOOOOOOOO! Something went wrong! <br/>
+                {{errorMsg}}
+            </p>
+        </div>
+        <form id="CreatePartyForm" class="form-stacked fade-when-loading">
+            <div class="clearfix">
+                <input class="input-medium" name="partyName" type="text" placeholder="Party Name" ng-model="partyName" /> 
+            </div>
+
+            <div class="clearfix">
+                <input class="input-medium" name="partyDate" type="text" placeholder="Password" ng-model="partyDate" />
+            </div>
+
+            <div class="clearfix">
+                <input class="input-medium" name="commissionerName" type="text" placeholder="Commissioner Name" ng-model="commissionerName" />
+            </div>
+     
+            <div class="actions">
+                <button class="btn" type="submit" ng-click="createParty()">Create</button>
+            </div>
+        </form> 
+        <p>&nbsp;</p>
+        <div id="CreationSuccess" class="hidden">Success Start</div>
+    </div>
+</div>

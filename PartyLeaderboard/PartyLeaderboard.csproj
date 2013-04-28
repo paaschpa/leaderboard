@@ -136,6 +136,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AppHost.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PartyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,6 +154,8 @@
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Content\js\angularjs.js" />
     <Content Include="Content\js\app\leaderBoard.js" />
+    <Content Include="Content\js\app\party.js" />
+    <Content Include="Content\js\app\register.js" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\jquery.js" />
@@ -197,6 +200,12 @@
       <Project>{E135149A-9AA7-4430-83FF-E1AC9F1CAC6E}</Project>
       <Name>PartyLeaderBoardServices</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Party\Create.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

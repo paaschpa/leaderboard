@@ -9,6 +9,8 @@ namespace PartyLeaderBoardServiceModel
     [Alias("UserScores")]
     public class UserScore
     {
+        [AutoIncrement]
+        [PrimaryKey]
         public int Id { get; set; }
         public int PartyId { get; set; }
         public int PlayerId { get; set; }

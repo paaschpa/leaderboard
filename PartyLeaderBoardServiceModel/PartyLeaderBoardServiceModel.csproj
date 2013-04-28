@@ -34,6 +34,9 @@
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>..\packages\ServiceStack.Common.3.9.43\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.43\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +50,7 @@
     <Compile Include="Operations\CreateUserScore.cs" />
     <Compile Include="Operations\PartyLeaderBoard.cs" />
     <Compile Include="Operations\UserScores.cs" />
+    <Compile Include="Party.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserScore.cs" />
     <Compile Include="UserTotalScore.cs" />
