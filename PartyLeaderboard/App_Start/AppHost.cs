@@ -3,7 +3,7 @@ using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using PartyLeaderboard.Services;
+using PartyLeaderBoardServices;
 using ServiceStack.Configuration;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -22,7 +22,7 @@ namespace PartyLeaderboard.App_Start
 		: AppHostBase
 	{		
 		public AppHost() //Tell ServiceStack the name and where to find your web services
-			: base("StarterTemplate ASP.NET Host", typeof(ScoresService).Assembly) { }
+			: base("Party Leader Board", typeof(ScoresService).Assembly) { }
 
 		public override void Configure(Funq.Container container)
 		{
@@ -31,6 +31,7 @@ namespace PartyLeaderboard.App_Start
 
             var connectionString = ConfigurationManager.ConnectionStrings["conString"].ToString();
             Register<IDbConnectionFactory>(new OrmLiteConnectionFactory(connectionString, SqlServerDialect.Provider));
+
 
 			//Set MVC to use the same Funq IOC as ServiceStack
 			ControllerBuilder.Current.SetControllerFactory(new FunqControllerFactory(container));

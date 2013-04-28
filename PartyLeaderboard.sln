@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyLeaderboard", "PartyLeaderboard\PartyLeaderboard.csproj", "{8FAC94C1-A4F7-4527-BBE3-B51F06244C11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyLeaderBoardServiceModel", "PartyLeaderBoardServiceModel\PartyLeaderBoardServiceModel.csproj", "{BD71D71D-4E00-46CE-8206-9123BB4756A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyLeaderBoardServices", "PartyLeaderBoardServices\PartyLeaderBoardServices.csproj", "{E135149A-9AA7-4430-83FF-E1AC9F1CAC6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{8FAC94C1-A4F7-4527-BBE3-B51F06244C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FAC94C1-A4F7-4527-BBE3-B51F06244C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FAC94C1-A4F7-4527-BBE3-B51F06244C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD71D71D-4E00-46CE-8206-9123BB4756A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD71D71D-4E00-46CE-8206-9123BB4756A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD71D71D-4E00-46CE-8206-9123BB4756A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD71D71D-4E00-46CE-8206-9123BB4756A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E135149A-9AA7-4430-83FF-E1AC9F1CAC6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E135149A-9AA7-4430-83FF-E1AC9F1CAC6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E135149A-9AA7-4430-83FF-E1AC9F1CAC6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E135149A-9AA7-4430-83FF-E1AC9F1CAC6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

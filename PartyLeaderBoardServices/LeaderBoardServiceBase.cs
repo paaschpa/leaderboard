@@ -6,7 +6,7 @@ using System.Web;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceInterface;
 
-namespace PartyLeaderboard.Services
+namespace PartyLeaderboardServices
 {
     public abstract class LeaderBoardServiceBase : Service
     {

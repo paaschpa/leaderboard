@@ -141,8 +141,6 @@
     </Compile>
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\LeaderBoardServiceBase.cs" />
-    <Compile Include="Services\ScoresService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -189,6 +187,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Rules.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PartyLeaderBoardServiceModel\PartyLeaderBoardServiceModel.csproj">
+      <Project>{BD71D71D-4E00-46CE-8206-9123BB4756A4}</Project>
+      <Name>PartyLeaderBoardServiceModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartyLeaderBoardServices\PartyLeaderBoardServices.csproj">
+      <Project>{E135149A-9AA7-4430-83FF-E1AC9F1CAC6E}</Project>
+      <Name>PartyLeaderBoardServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
