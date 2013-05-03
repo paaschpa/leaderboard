@@ -11,13 +11,12 @@ namespace PartyLeaderboard.Models
         {
             return new Dictionary<int, string>
                 {
-                     {1, "Alex"},
-                     {2, "Haxel"},
-                     {3, "J"}, 
-                     {4, "Wems"}, 
-                     {5,"Andrew"},
-                     {6, "Justin"}, 
-                     {7, "Clatyon"}
+                     {1, "Nof"},
+                     {2, "RyRy"},
+                     {3, "Dee"}, 
+                     {4, "Michelle"}, 
+                     {5,"Rusty"},
+                     {6, "Lana"}
                 };
         }
     }
