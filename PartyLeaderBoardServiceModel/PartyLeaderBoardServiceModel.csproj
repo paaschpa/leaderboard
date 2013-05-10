@@ -37,6 +37,9 @@
     <Reference Include="ServiceStack.OrmLite">
       <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.43\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\PartyLeaderboard\bin\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

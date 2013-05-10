@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using ServiceStack.DataAnnotations;
 using ServiceStack.ServiceHost;
+using ServiceStack.ServiceInterface;
 
 namespace PartyLeaderBoardServiceModel.Operations
 {
+    [Authenticate]
     [Route("/Party", "POST")]
     public class CreateParty
     {

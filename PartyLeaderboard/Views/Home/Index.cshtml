@@ -1,91 +1,38 @@
-﻿@{
+﻿@using PartyLeaderboard.App_Start
+@using ServiceStack.CacheAccess
+@using ServiceStack.ServiceInterface
+@using ServiceStack.ServiceInterface.Auth
+@{
     ViewBag.Title = "Index";
 }
-<script>
-    users = @Html.Raw(ServiceStack.Text.JsonSerializer.SerializeToString(Model.Users));
-</script>
-<script src='@Href("/Content/js/app/leaderBoard.js")'></script>
-
-<div ng-app="ngLeaderBoard">
-    
-    <div id="leaderboard">
-        <script type="text/ng-template" id="list-template.html">
-        <a href="#modalNewScore" role="button" class="btn btn-primary" data-toggle="modal">Add Score</a>
-        <table class="table">
-            <thead>
-                <td>Name</td> 
-                <td>Score</td> 
-                <td>Rank</td> 
-                <td>Relation to Cut</td> 
-            </thead>
-            <tbody>
-                <tr ng-repeat="userScore in userScores">
-                    <td><a href='#/{{userScore.name}}'>{{userScore.name}}</a></td>            
-                    <td>{{userScore.totalScore}}</td>            
-                    <td>{{userScore.ranking}}</td>            
-                    <td>{{userScore.relationToCut | number:2}}</td>            
-                </tr>
-            </tbody>
-        </table>  
-        
-        Current Cut Line {{cutLine | number:2}} 
-        
-        <!-- Modal new Score Window -->
-        <div id="modalNewScore" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="control-group">
-                        <label class="control-label">User</label>
-                        <div class="controls">
-                            <select id="sel" class ="input-block-level" ng-model="user" ng-options="u.name for u in users"></select>
-                        </div>
+@{
+    var key = SessionFeature.GetSessionKey()?? "";
+    var sess = AppHost.Resolve<ICacheClient>().Get<AuthUserSession>(key);
+}
+@if (sess == null || !sess.IsAuthenticated) {
+    <div>>
+        Sign in to officiate your leaderboard
+            <form class="well form-horizontal" method="POST">
+                <div class="control-group">
+                    <label class="control-label">UserName:</label> 
+                    <div class="controls">
+                        <input type="text" name="userName" ng-model="user.name" required/>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label">Score</label>
-                        <div class="controls">
-                            <input type="text" ng-model="newUserScoreScore" placeholder="Score" class="input-mini"/> 
-                        </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Password:</label> 
+                    <div class="controls">
+                        <input type="password" name="password" ng-model="user.password" required/>
+                        <br/><br/>
+                        <button type="submit" class="btn" ng-click="login()">Sign in</button>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label">Notes</label>
-                        <div class="controls">
-                            <textarea rows="3" ng-model="newUserScoreNotes" placeholder="Notes"></textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-primary" ng-click="addScore()">Add</button>
-            </div>
-        </div>
-        
-        </script>
+                </div>
+            </form>
+        Or <a href="/Home/Register">Register</a> to create a leaderboard
     </div>
-
-    <div id="userdetails">
-        <!-- User Score Detail -->
-        <script type="text/ng-template" id="user-scores.html">
-        <h1>User: {{userName}}</h1>
-        <table class="table">
-            <thead>
-                <td>Score</td> 
-                <td>Date</td> 
-                <td>Notes</td>
-            </thead>
-            <tbody>
-                <tr ng-repeat="score in scores">
-                    <td>{{score.score}}</td>            
-                    <td>{{dateFormat(score.scoreDate)}}</td>            
-                    <td>{{score.notes}}</td>            
-                </tr>
-            </tbody>
-        </table>  
-        
-        
-        </script>  
+}
+@if (sess != null && sess.IsAuthenticated) {
+    <div>
+        Create a new leaderboard    
     </div>
-
-    <ng-view></ng-view>
-
-</div>
+}

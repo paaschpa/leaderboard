@@ -6,6 +6,7 @@
     $scope.register = function () {
         var newRegistration = {
             'username': $scope.userName,
+            'email': $scope.email,
             'password': $scope.password,
             'autologin': true
         };
