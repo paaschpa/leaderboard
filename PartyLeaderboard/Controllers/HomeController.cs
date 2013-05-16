@@ -9,6 +9,7 @@ using PartyLeaderboard.Models;
 using ServiceStack;
 using ServiceStack.Common.Web;
 using ServiceStack.ServiceInterface.Auth;
+using ServiceStack.WebHost.Endpoints;
 
 namespace PartyLeaderboard.Controllers
 {
@@ -39,7 +40,7 @@ namespace PartyLeaderboard.Controllers
                 try
                 {
                     service.RequestContext = System.Web.HttpContext.Current.ToRequestContext();
-                    var response = service.Post(auth);
+                    var response = service.Authenticate(auth);
                     return RedirectToAction("List", "Party");
                 }
                 catch (HttpError)
@@ -51,6 +52,16 @@ namespace PartyLeaderboard.Controllers
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View();
+        }
+
+        public ActionResult LogOut()
+        {
+            //api logout
+            var apiAuthService = AppHostBase.Resolve<AuthService>();
+            apiAuthService.RequestContext = System.Web.HttpContext.Current.ToRequestContext();
+            apiAuthService.Post(new Auth() { provider = "logout" });
+            //forms logout
+            return RedirectToAction("Index", "Home");
         }
     }
 }

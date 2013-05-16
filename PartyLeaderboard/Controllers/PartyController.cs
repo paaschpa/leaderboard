@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PartyLeaderBoardServiceModel;
+using PartyLeaderBoardServiceModel.Operations;
+using PartyLeaderBoardServices;
+using PartyLeaderboard.App_Start;
 using ServiceStack.Mvc;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceInterface.Auth;
@@ -11,8 +15,6 @@ namespace PartyLeaderboard.Controllers
 {
     public class PartyController : ServiceStackController<AuthUserSession>
     {
-        public IDbConnectionFactory DbConnectionFactory { get; set; }
-
         public ActionResult Create()
         {
             return View();
@@ -20,9 +22,14 @@ namespace PartyLeaderboard.Controllers
 
         public ActionResult List()
         {
-            var userName = AuthSession.UserName;
+            var userId = int.Parse(AuthSession.Id);
+            var parties = new List<Party>();
+            using (var service = AppHost.Resolve<PartyService>())
+            {
+                parties = service.Get(new Parties {CommissionerId = userId});
+            }
 
-            return View();
+            return View(parties);
         }
     }
 }

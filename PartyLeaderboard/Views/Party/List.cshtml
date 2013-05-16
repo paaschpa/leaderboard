@@ -3,3 +3,11 @@
 }
 
 <h2>List</h2>
+<table>
+@foreach (var party in @Model)
+{
+    <tr>
+        <td>@party.Name</td>
+    </tr> 
+}
+</table>

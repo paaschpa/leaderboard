@@ -15,9 +15,15 @@ namespace PartyLeaderBoardServices
     public class PartyService : LeaderBoardServiceBase
     {
         [Authenticate]
-        public Party Post(CreateParty reqeust)
+        public List<Party> Get(Parties request)
         {
-            var newParty = reqeust.TranslateTo<Party>();
+            return DbConnExec<List<Party>>((con) => con.Select<Party>(x => x.CommissionerId == request.CommissionerId));
+        }
+
+        [Authenticate]
+        public Party Post(CreateParty request)
+        {
+            var newParty = request.TranslateTo<Party>();
             var user = Session.Get<AuthUserSession>(SessionFeature.GetSessionKey());
             newParty.CommissionerId = int.Parse(user.Id); 
             DbConnExecTransaction((con) =>

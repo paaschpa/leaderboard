@@ -10,7 +10,7 @@
     var sess = AppHost.Resolve<ICacheClient>().Get<AuthUserSession>(key);
 }
 @if (sess == null || !sess.IsAuthenticated) {
-    <div>>
+    <div>
         Sign in to officiate your leaderboard
             <form class="well form-horizontal" method="POST">
                 <div class="control-group">

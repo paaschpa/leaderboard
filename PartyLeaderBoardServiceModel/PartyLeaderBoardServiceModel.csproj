@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Operations\CreateParty.cs" />
     <Compile Include="Operations\CreateUserScore.cs" />
+    <Compile Include="Operations\Parties.cs" />
     <Compile Include="Operations\PartyLeaderBoard.cs" />
     <Compile Include="Operations\UserScores.cs" />
     <Compile Include="Party.cs" />
