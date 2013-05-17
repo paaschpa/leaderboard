@@ -14,7 +14,6 @@ namespace PartyLeaderBoardServiceModel.Operations
     {
         public string Name { get; set; }
         public DateTime? PartyDate { get; set; }
-        public int CommissionerId { get; set; }
         public string CommissionerName { get; set; }
     }
 }

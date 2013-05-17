@@ -6,7 +6,7 @@ using ServiceStack.ServiceHost;
 
 namespace PartyLeaderBoardServiceModel.Operations
 {
-    [Route("/{PartyId}/leaderboard")]
+    [Route("/Party/{PartyId}/leaderboard")]
     public class PartyLeaderBoard : IReturn<PartyLeaderBoard>
     {
         public int PartyId { get; set; }

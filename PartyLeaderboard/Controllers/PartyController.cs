@@ -31,5 +31,10 @@ namespace PartyLeaderboard.Controllers
 
             return View(parties);
         }
+
+        public ActionResult Index(int id)
+        {
+            return View();
+        }
     }
 }

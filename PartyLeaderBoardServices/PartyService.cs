@@ -24,11 +24,12 @@ namespace PartyLeaderBoardServices
         public Party Post(CreateParty request)
         {
             var newParty = request.TranslateTo<Party>();
-            var user = Session.Get<AuthUserSession>(SessionFeature.GetSessionKey());
-            newParty.CommissionerId = int.Parse(user.Id); 
+            var user = base.SessionAs<AuthUserSession>();
+            newParty.CommissionerId = int.Parse(user.Id);
+            newParty.CommissionerName = request.CommissionerName ?? user.UserName;
             DbConnExecTransaction((con) =>
                 {
-                    con.Insert<Party>();
+                    con.Insert<Party>(newParty);
                     newParty.Id = (int)con.GetLastInsertId();
                 });
 

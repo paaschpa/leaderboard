@@ -7,12 +7,13 @@
         var newParty = {
             'name': $scope.partyName,
             'partyDate': $scope.partyDate,
+            'commissionerName': $scope.commissionerName
         };
 
         var partyCreation = $http.post('/api/party', newParty);
         partyCreation.success(function (data) {
             $('#CreatePartyForm').hide();
-            $('#CreationSuccess').show();
+            window.location = '/Party/' + data.id;
         });
         partyCreation.error(function (data) {
             $('#error').show();
