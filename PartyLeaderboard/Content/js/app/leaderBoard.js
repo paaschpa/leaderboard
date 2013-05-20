@@ -15,14 +15,14 @@ ngLeaderBoard.config(function ($routeProvider) {
 ngLeaderBoard.controller("LeaderBoardCtrl", function ($scope, $http) {
     $scope.users = [];
     $scope.user = 'test';
-    var leaderBoardResults = $http.get('/api/party/' + 1 + '/leaderboard');
+    var leaderBoardResults = $http.get('/api/party/' + partyIndex + '/leaderboard');
     leaderBoardResults.success(function (data) {
         $scope.cutLine = data.cutLine;
         $scope.userScores = data.userScores;
     });
 
     $scope.refreshScores = function () {
-        var refreshedData = $http.get('/api/party/' + 1 + '/leaderboard');
+        var refreshedData = $http.get('/api/party/' + partyIndex + '/leaderboard');
         refreshedData.success(function (data) {
             $scope.cutLine = data.cutLine;
             $scope.userScores = data.userScores;

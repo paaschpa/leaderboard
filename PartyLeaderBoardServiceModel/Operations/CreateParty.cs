@@ -15,5 +15,6 @@ namespace PartyLeaderBoardServiceModel.Operations
         public string Name { get; set; }
         public DateTime? PartyDate { get; set; }
         public string CommissionerName { get; set; }
+        public List<string> Players { get; set; }
     }
 }

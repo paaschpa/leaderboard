@@ -15,8 +15,9 @@ namespace PartyLeaderBoardServices
         {
             var userScoresSql = @"Select Name, Sum(Score) as TotalScore, RANK() OVER (ORDER BY Sum(Score) DESC) AS Ranking
                                     From UserScores
+                                    Where PartyId = @partyId
                                     Group By Name Order By Sum(Score) Desc";
-            var userScores = DbConnExec((con) => con.Select<UserTotalScore>(userScoresSql));
+            var userScores = DbConnExec((con) => con.Select<UserTotalScore>(userScoresSql, new {partyId = request.PartyId}));
 
             var cutLine = userScores.Average(x => x.TotalScore);
 

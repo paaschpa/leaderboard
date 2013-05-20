@@ -2,6 +2,10 @@
     ViewBag.Title = "Index";
 }
 
+<script>
+    //going global
+    partyIndex = '@Model.PartyId';
+</script>
 <script src='@Href("/Content/js/app/leaderBoard.js")'></script>
 
 <div ng-app="ngLeaderBoard">
