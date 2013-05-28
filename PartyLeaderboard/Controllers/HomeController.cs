@@ -8,18 +8,20 @@ using PartyLeaderboard.App_Start;
 using PartyLeaderboard.Models;
 using ServiceStack;
 using ServiceStack.Common.Web;
+using ServiceStack.Mvc;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
 
 namespace PartyLeaderboard.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ServiceStackController<AuthUserSession>
     {
         public ActionResult Index()
         {
-            dynamic viewModel = new ExpandoObject();
-            viewModel.Users = Users.GetUsers().Select(x => new {id = x.Key, name = x.Value });
-            return View(viewModel);
+            if(UserSession.IsAuthenticated)
+            { return RedirectToAction("List", "Party"); }
+            
+            return View();
         }
 
         public ActionResult Rules()
@@ -40,6 +42,7 @@ namespace PartyLeaderboard.Controllers
                 try
                 {
                     service.RequestContext = System.Web.HttpContext.Current.ToRequestContext();
+                    auth.RememberMe = true;
                     var response = service.Authenticate(auth);
                     return RedirectToAction("List", "Party");
                 }

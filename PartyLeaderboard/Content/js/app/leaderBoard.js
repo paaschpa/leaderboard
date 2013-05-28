@@ -14,6 +14,7 @@ ngLeaderBoard.config(function ($routeProvider) {
 
 ngLeaderBoard.controller("LeaderBoardCtrl", function ($scope, $http) {
     $scope.users = [];
+    getUsers(partyIndex);
     $scope.user = 'test';
     var leaderBoardResults = $http.get('/api/party/' + partyIndex + '/leaderboard');
     leaderBoardResults.success(function (data) {
@@ -30,7 +31,7 @@ ngLeaderBoard.controller("LeaderBoardCtrl", function ($scope, $http) {
     };
 
     $scope.addScore = function () {
-        var userScore = { name: $scope.user.name, score: $scope.newUserScoreScore, notes: $scope.newUserScoreNotes };
+        var userScore = { partyId: partyIndex, name: $scope.user.name, score: $scope.newUserScoreScore, notes: $scope.newUserScoreNotes };
         $http.post('/api/userscore', userScore)
             .success(function (data) {
                 console.log('success');
@@ -40,7 +41,19 @@ ngLeaderBoard.controller("LeaderBoardCtrl", function ($scope, $http) {
             });
 
         $('#modalNewScore').modal('hide');
-        refreshScores();
+        $scope.refreshScores();
+    };
+
+    function getUsers(partyIndex) {
+        $http.get('/api/party/' + partyIndex + '/players')
+            .success(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $scope.users.push({ name: data[i].name });
+                }
+            })
+            .error(function (data) {
+                console.log(data);
+            });
     };
 });
 

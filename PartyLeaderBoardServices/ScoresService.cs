@@ -5,7 +5,10 @@ using System.Text;
 using PartyLeaderBoardServiceModel;
 using PartyLeaderBoardServiceModel.Operations;
 using PartyLeaderboardServices;
+using ServiceStack.Common;
 using ServiceStack.OrmLite;
+using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
 
 namespace PartyLeaderBoardServices
 {
@@ -17,9 +20,9 @@ namespace PartyLeaderBoardServices
                                     From UserScores
                                     Where PartyId = @partyId
                                     Group By Name Order By Sum(Score) Desc";
-            var userScores = DbConnExec((con) => con.Select<UserTotalScore>(userScoresSql, new {partyId = request.PartyId}));
+            var userScores = DbConnExec((con) => con.Query<UserTotalScore>(userScoresSql, new {partyId = request.PartyId}));
 
-            var cutLine = userScores.Average(x => x.TotalScore);
+            var cutLine = userScores.Count > 0 ? userScores.Average(x => x.TotalScore) : 0;
 
             foreach (var userScore in userScores)
             {
@@ -36,16 +39,25 @@ namespace PartyLeaderBoardServices
             return userScores;
         }
 
-        public UserScore Post(UserScore request)
+        public UserScore Post(CreateUserScore request)
         {
-            request.ScoreDate = DateTime.Now;
-            DbConnExecTransaction((con) =>
-            {
-                con.Insert<UserScore>(request);
-                request.Id = (int)con.GetLastInsertId();
-            });
+            var newUserScore = request.TranslateTo<UserScore>();
+            newUserScore.ScoreDate = DateTime.Now;
 
-            return request;
+            var commissionerId = DbConnExec((con) => con.GetById<Party>(request.PartyId)).CommissionerId;
+            var userId = base.SessionAs<AuthUserSession>().UserAuthId ?? "0";
+
+            if (commissionerId == int.Parse(userId))
+            {
+                DbConnExecTransaction((con) =>
+                {
+                    con.Insert<UserScore>(newUserScore);
+                    newUserScore.Id = (int)con.GetLastInsertId();
+                });
+            }
+
+
+            return newUserScore;
         }
     }
 }

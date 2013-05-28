@@ -25,8 +25,8 @@
             </div>
             
             <div class="input-append">
-                <input class="span2" type ="text" name="newPlayer" ng-model="newPlayerName" placeholder="Player Name"/>
-                <button class="btn" ng-click="addPlayer(newPlayerName)" >Add Player</button>
+                <input class="span3" type ="text" name="newPlayer" ng-model="newPlayerName" placeholder="Player Name"/>
+                <button class="btn btn-primary" ng-click="addPlayer(newPlayerName)" >Add Player</button>
             </div>
             <div>
                 Players
@@ -34,12 +34,12 @@
             <div id="players">
                 <div class="row-fluid" ng-repeat="player in players">
                     <div class="span2">{{player}}</div>
-                    <div class span="1"><i class="icon-remove" ng-click="removePlayer(player)"></i></div>
+                    <div class span="1"><a href="#" class="btn btn-mini"><i class="icon-remove" ng-click="removePlayer(player)"></i></a></div>
                 </div>
             </div>
             <p>&nbsp;</p>
             <div class="actions">
-                <button class="btn" type="submit" ng-click="createParty()">Create Party</button>
+                <button class="btn btn-primary" type="submit" ng-click="createParty()">Create Party!</button>
             </div>
         </form> 
         <p>&nbsp;</p>

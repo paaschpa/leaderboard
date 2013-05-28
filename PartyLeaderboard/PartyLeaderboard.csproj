@@ -208,7 +208,7 @@
     <Content Include="Views\Party\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Party\Index.cshtml" />
+    <Content Include="Views\Party\LeaderBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Party\List.cshtml" />

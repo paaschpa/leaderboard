@@ -10,17 +10,20 @@ using PartyLeaderBoardServices;
 using PartyLeaderboard.App_Start;
 using ServiceStack.Mvc;
 using ServiceStack.OrmLite;
+using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 
 namespace PartyLeaderboard.Controllers
 {
     public class PartyController : ServiceStackController<AuthUserSession>
     {
+        [Authenticate]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authenticate]
         public ActionResult List()
         {
             var userId = int.Parse(AuthSession.Id);
@@ -33,7 +36,7 @@ namespace PartyLeaderboard.Controllers
             return View(parties);
         }
 
-        public ActionResult Index(int id)
+        public ActionResult LeaderBoard(int id)
         {
             dynamic viewModel = new ExpandoObject();
             viewModel.PartyId = id;

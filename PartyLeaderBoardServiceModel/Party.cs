@@ -17,5 +17,18 @@ namespace PartyLeaderBoardServiceModel
         public DateTime? PartyDate { get; set; }
         public int CommissionerId { get; set; }
         public string CommissionerName { get; set; }
+
+        [Ignore]
+        public String FormattedPartyDate
+        {
+            get
+            {
+                if (this.PartyDate.HasValue)
+                    return this.PartyDate.Value.ToString("d");
+
+                return "";
+            }
+        }
+
     }
 }

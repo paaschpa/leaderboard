@@ -21,6 +21,12 @@ namespace PartyLeaderBoardServices
         }
 
         [Authenticate]
+        public List<PartyPlayer> Get(PartyPlayers request)
+        {
+            return DbConnExec<List<PartyPlayer>>( (con) => con.Select<PartyPlayer>(x => x.PartyId == request.PartyId));
+        }
+
+        [Authenticate]
         public Party Post(CreateParty request)
         {
             var newParty = request.TranslateTo<Party>();
@@ -31,6 +37,10 @@ namespace PartyLeaderBoardServices
                 {
                     con.Insert<Party>(newParty);
                     newParty.Id = (int)con.GetLastInsertId();
+                    foreach (var player in request.Players)
+                    {
+                        con.Insert<PartyPlayer>(new PartyPlayer {PartyId = newParty.Id, Name = player});
+                    }
                 });
 
             return newParty;

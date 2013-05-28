@@ -2,17 +2,16 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
-
 <div>
-    <a href="/Party/Create">Create a new leaderboard</a>
+    <a href="/Party/Create" class="btn btn-primary">New Party Leader Board</a>
 </div>
 
+<h1>My Parties</h1>
 <table>
 @foreach (var party in @Model)
 {
     <tr>
-        <td>@party.Name</td>
+    <td> - <a href="/Party/LeaderBoard/@party.Id">@party.Name</a> on @party.FormattedPartyDate</td>
     </tr> 
 }
 </table>

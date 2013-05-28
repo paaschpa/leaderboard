@@ -10,6 +10,7 @@
     var sess = AppHost.Resolve<ICacheClient>().Get<AuthUserSession>(key);
 }
 @if (sess == null || !sess.IsAuthenticated) {
+    @Html.ValidationSummary()
     <div>
         Sign in to officiate your leaderboard
             <form class="well form-horizontal" method="POST">
@@ -34,6 +35,14 @@
 @if (sess != null && sess.IsAuthenticated) {
     <div>
         <a href="/Party/Create">Create a new leaderboard</a>
+        <table>
+        @foreach (var party in @Model) 
+        {
+            <tr>
+            <td><a href="/Party/Index/@party.Id">@party.Name</a></td>
+            </tr> 
+        }
+        </table>
 
     </div>
 }

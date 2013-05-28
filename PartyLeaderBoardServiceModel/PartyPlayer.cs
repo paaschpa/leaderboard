@@ -6,16 +6,13 @@ using ServiceStack.DataAnnotations;
 
 namespace PartyLeaderBoardServiceModel
 {
-    [Alias("UserScores")]
-    public class UserScore
+    [Alias("PartyPlayers")]
+    public class PartyPlayer
     {
         [AutoIncrement]
         [PrimaryKey]
         public int Id { get; set; }
         public int PartyId { get; set; }
         public string Name { get; set; }
-        public int Score { get; set; }
-        public DateTime ScoreDate { get; set; }
-        public string Notes { get; set; }
     }
 }
