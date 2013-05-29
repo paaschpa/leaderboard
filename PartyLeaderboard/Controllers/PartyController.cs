@@ -38,8 +38,21 @@ namespace PartyLeaderboard.Controllers
 
         public ActionResult LeaderBoard(int id)
         {
+            Party party = null;
+            using (var service = AppHost.Resolve<PartyService>())
+            {
+                party = service.Get(new Parties { PartyId = id }).FirstOrDefault();
+            }
+
             dynamic viewModel = new ExpandoObject();
-            viewModel.PartyId = id;
+            viewModel.PartyId = party.Id;
+            viewModel.IsCommissioner = false;
+            
+            if (AuthSession.Id != null)
+            {
+                viewModel.IsCommissioner = int.Parse(AuthSession.Id) == party.CommissionerId;
+            }
+
             return View(viewModel);
         }
     }

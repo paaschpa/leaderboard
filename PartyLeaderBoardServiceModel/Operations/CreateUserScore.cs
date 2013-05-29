@@ -6,7 +6,7 @@ using ServiceStack.ServiceHost;
 
 namespace PartyLeaderBoardServiceModel.Operations
 {
-    [Route("/userscore", "POST")]
+    [Route("/Userscore", "POST")]
     public class CreateUserScore
     {
         public int PartyId { get; set; }

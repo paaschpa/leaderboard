@@ -9,6 +9,7 @@ namespace PartyLeaderBoardServiceModel.Operations
     [Route("/Parties/{CommissionerId}")]
     public class Parties
     {
-        public int CommissionerId { get; set; }
+        public int? CommissionerId { get; set; }
+        public int? PartyId { get; set; }
     }
 }

@@ -12,7 +12,8 @@
     
     <div id="leaderboard">
         <script type="text/ng-template" id="list-template.html">
-        <a href="#modalNewScore" role="button" class="btn btn-primary" data-toggle="modal">Add Score</a>
+        <a href="#modalNewScore" role="button" class="btn btn-primary" data-toggle="modal">Add Score</a> 
+        <a href='#/pendingScores' style='padding-left: 35px'>{{pendingScoresCount}} Scores Need Commissioner Approval</a>
         <table class="table">
             <thead>
                 <td>Name</td> 
@@ -22,7 +23,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="userScore in userScores">
-                    <td><a href='#/{{userScore.name}}'>{{userScore.name}}</a></td>            
+                    <td><a href='#/player/{{userScore.name}}'>{{userScore.name}}</a></td>            
                     <td>{{userScore.totalScore}}</td>            
                     <td>{{userScore.ranking}}</td>            
                     <td>{{userScore.relationToCut | number:2}}</td>            
@@ -68,7 +69,7 @@
     <div id="userdetails">
         <!-- User Score Detail -->
         <script type="text/ng-template" id="user-scores.html">
-        <h1>User: {{userName}}</h1>
+        <h1>User: {{userName}}</h1> <a href='#/'>back</a>
         <table class="table">
             <thead>
                 <td>Score</td> 
@@ -83,8 +84,36 @@
                 </tr>
             </tbody>
         </table>  
-        
-        
+        </script>  
+    </div>
+    
+    <div id="pendingScores">
+        <!-- List of pending scores  -->
+        <script type="text/ng-template" id="pending-scores.html">
+         <a href='#/'>back</a>
+        <table class="table">
+            <thead>
+                <td>Player</td> 
+                <td>Score</td> 
+                <td>Date</td> 
+                <td>Notes</td>
+                <td>Approve</td>
+            </thead>
+            <tbody>
+                <tr ng-repeat="score in pendingScores">
+                    <td>{{score.name}}</td>            
+                    <td>{{score.score}}</td>
+                    <td>{{dateFormat(score.scoreDate)}}</td>            
+                    <td>{{score.notes}}</td>            
+                    <td>
+                        @if (Model.IsCommissioner)
+                        {
+                            <button class="btn btn-primary" ng-click="approveScore(score)">Approve</button>
+                        }
+                    </td>            
+                </tr>
+            </tbody>
+        </table>  
         </script>  
     </div>
 

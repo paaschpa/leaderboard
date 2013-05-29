@@ -17,10 +17,18 @@ namespace PartyLeaderBoardServices
         [Authenticate]
         public List<Party> Get(Parties request)
         {
-            return DbConnExec<List<Party>>((con) => con.Select<Party>(x => x.CommissionerId == request.CommissionerId));
+            if (request.PartyId.HasValue)
+            {
+                var party = DbConnExec<Party>((con) => con.GetById<Party>(request.PartyId));
+                return new List<Party>() {party};
+            }
+
+            if(request.CommissionerId.HasValue)
+            { return DbConnExec<List<Party>>((con) => con.Select<Party>(x => x.CommissionerId == request.CommissionerId)); }
+
+            return null;
         }
 
-        [Authenticate]
         public List<PartyPlayer> Get(PartyPlayers request)
         {
             return DbConnExec<List<PartyPlayer>>( (con) => con.Select<PartyPlayer>(x => x.PartyId == request.PartyId));

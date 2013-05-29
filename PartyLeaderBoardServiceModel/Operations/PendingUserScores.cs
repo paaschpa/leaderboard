@@ -6,10 +6,9 @@ using ServiceStack.ServiceHost;
 
 namespace PartyLeaderBoardServiceModel.Operations
 {
-    [Route("/Party/{PartyId}/Score/{Name}", "GET")]
-    public class UserScores
+    [Route("/Party/{PartyId}/PendingScores")]
+    public class PendingScores
     {
         public int PartyId { get; set; }
-        public string Name { get; set; }
     }
 }
