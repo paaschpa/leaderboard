@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using PartyLeaderBoardServices;
+using ServiceStack.Authentication.OpenId;
 using ServiceStack.Configuration;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -33,9 +34,12 @@ namespace PartyLeaderboard.App_Start
             var connectionString = ConfigurationManager.ConnectionStrings["conString"].ToString();
             Register<IDbConnectionFactory>(new OrmLiteConnectionFactory(connectionString, SqlServerDialect.Provider));
 
+		    var appSettings = new AppSettings();
             Plugins.Add(new AuthFeature(() => new AuthUserSession(), new IAuthProvider[]
                 {
-                    new CredentialsAuthProvider(), 
+                    new CredentialsAuthProvider(),
+                    new FacebookAuthProvider(appSettings), 
+                    new GoogleOpenIdOAuthProvider(appSettings), 
                 }));
 
             Plugins.Add(new RegistrationFeature());

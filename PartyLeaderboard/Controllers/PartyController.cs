@@ -26,7 +26,7 @@ namespace PartyLeaderboard.Controllers
         [Authenticate]
         public ActionResult List()
         {
-            var userId = int.Parse(AuthSession.Id);
+            var userId = int.Parse(AuthSession.UserAuthId);
             var parties = new List<Party>();
             using (var service = AppHost.Resolve<PartyService>())
             {
