@@ -17,7 +17,7 @@ namespace PartyLeaderboard.Models
                      {4, "Wems"}, 
                      {5,"Andrew"},
                      {6, "Justin"}, 
-                     {7, "Clatyon"}
+                     {7, "Clayton"}
                 };
         }
     }
