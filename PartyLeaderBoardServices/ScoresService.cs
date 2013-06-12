@@ -48,7 +48,9 @@ namespace PartyLeaderBoardServices
             using (var redisClient = RedisClientsManager.GetClient())
             {
                 var key = UrnId.Create<UserScore>(request.PartyId.ToString());
-                var scores = redisClient.GetAllItemsFromList(key).Select(x => x.FromJson<UserScore>());
+                var scores = redisClient.GetAllEntriesFromHash(key)
+                               .Select(x => x.Value.FromJson<UserScore>())
+                               .OrderBy(x => x.ScoreDate);
                 return scores.ToList();
             }
         }
@@ -74,9 +76,7 @@ namespace PartyLeaderBoardServices
             using (var redisClient = RedisClientsManager.GetClient())
             {
                 var key = UrnId.Create<UserScore>(request.PartyId.ToString());
-                var pendingScoreToRemove = request.TranslateTo<UserScore>();
-                pendingScoreToRemove.Id = 0;
-                redisClient.RemoveItemFromList(key, pendingScoreToRemove.ToJson(), 1);
+                redisClient.RemoveEntryFromHash(key, request.PendingScoreId.ToString());
             }
 
             return newUserScore;
@@ -103,8 +103,10 @@ namespace PartyLeaderBoardServices
                 //Add to pending scores
                 using (var redisClient = RedisClientsManager.GetClient())
                 {
-                    var key = UrnId.Create<UserScore>(request.PartyId.ToString());
-                    redisClient.AddItemToList(key, newUserScore.ToJson());
+                    var hashId = UrnId.Create<UserScore>(request.PartyId.ToString());
+                    var key = Guid.NewGuid().ToString();
+                    newUserScore.PendingScoreId = key;
+                    redisClient.SetEntryInHash(hashId, key, newUserScore.ToJson());
                 }
             }
 

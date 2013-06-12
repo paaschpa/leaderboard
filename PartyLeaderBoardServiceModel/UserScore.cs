@@ -17,5 +17,8 @@ namespace PartyLeaderBoardServiceModel
         public int Score { get; set; }
         public DateTime ScoreDate { get; set; }
         public string Notes { get; set; }
+
+        [Ignore]
+        public string PendingScoreId { get; set; }
     }
 }

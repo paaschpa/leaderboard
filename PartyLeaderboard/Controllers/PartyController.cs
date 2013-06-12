@@ -48,9 +48,9 @@ namespace PartyLeaderboard.Controllers
             viewModel.PartyId = party.Id;
             viewModel.IsCommissioner = false;
             
-            if (AuthSession.Id != null)
+            if (AuthSession.UserAuthId != null)
             {
-                viewModel.IsCommissioner = int.Parse(AuthSession.Id) == party.CommissionerId;
+                viewModel.IsCommissioner = int.Parse(AuthSession.UserAuthId) == party.CommissionerId;
             }
 
             return View(viewModel);

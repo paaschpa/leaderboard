@@ -39,7 +39,7 @@ namespace PartyLeaderBoardServices
         {
             var newParty = request.TranslateTo<Party>();
             var user = base.SessionAs<AuthUserSession>();
-            newParty.CommissionerId = int.Parse(user.Id);
+            newParty.CommissionerId = int.Parse(user.UserAuthId);
             newParty.CommissionerName = request.CommissionerName ?? user.UserName;
             DbConnExecTransaction((con) =>
                 {

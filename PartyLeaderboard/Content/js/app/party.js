@@ -25,7 +25,7 @@
         var partyCreation = $http.post('/api/party', newParty);
         partyCreation.success(function (data) {
             $('#CreatePartyForm').hide();
-            window.location = '/Party/' + data.id;
+            window.location = '/Party/Leaderboard/' + data.id;
         });
         partyCreation.error(function (data) {
             $('#error').show();
