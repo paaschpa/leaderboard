@@ -26,6 +26,19 @@ namespace PartyLeaderBoardServices
             if(request.CommissionerId.HasValue)
             { return DbConnExec<List<Party>>((con) => con.Select<Party>(x => x.CommissionerId == request.CommissionerId)); }
 
+            if (!String.IsNullOrEmpty(request.PartyName))
+            {
+                var versionIndex = request.PartyName.LastIndexOf("-");
+                var versionString = versionIndex > 0
+                                        ? request.PartyName.Substring(versionIndex,
+                                                                      request.PartyName.Length - versionIndex)
+                                        : "0";
+                int version = 0;
+                int.TryParse(versionString, out version);
+ 
+                return DbConnExec<List<Party>>((con) => con.Select<Party>(x => x.Name == request.PartyName && x.Version == version));
+            }
+
             return null;
         }
 

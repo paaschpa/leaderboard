@@ -36,18 +36,29 @@ namespace PartyLeaderboard.Controllers
             return View(parties);
         }
 
-        public ActionResult LeaderBoard(int id)
+        public ActionResult LeaderBoard(string id)
         {
             Party party = null;
+            Parties request = null;
+            int partyId;
+            if (int.TryParse(id, out partyId) == true)
+            {
+                request = new Parties() {PartyId = partyId};
+            }
+            else
+            {
+                request = new Parties() {PartyName = id};
+            }
+
             using (var service = AppHost.Resolve<PartyService>())
             {
-                party = service.Get(new Parties { PartyId = id }).FirstOrDefault();
+                party = service.Get(request).FirstOrDefault();
             }
 
             dynamic viewModel = new ExpandoObject();
             viewModel.PartyId = party.Id;
             viewModel.IsCommissioner = false;
-            
+
             if (AuthSession.UserAuthId != null)
             {
                 viewModel.IsCommissioner = int.Parse(AuthSession.UserAuthId) == party.CommissionerId;

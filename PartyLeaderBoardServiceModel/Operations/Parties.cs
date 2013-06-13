@@ -11,5 +11,6 @@ namespace PartyLeaderBoardServiceModel.Operations
     {
         public int? CommissionerId { get; set; }
         public int? PartyId { get; set; }
+        public string PartyName { get; set; }
     }
 }
