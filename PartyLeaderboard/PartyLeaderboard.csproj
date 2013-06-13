@@ -166,6 +166,8 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\sign-in-with-facebook.png" />
+    <Content Include="Content\img\sign-in-with-google.png" />
     <Content Include="Content\js\angularjs.js" />
     <Content Include="Content\js\app\leaderBoard.js" />
     <Content Include="Content\js\app\party.js" />
