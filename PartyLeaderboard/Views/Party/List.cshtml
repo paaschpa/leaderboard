@@ -11,7 +11,7 @@
 @foreach (var party in @Model)
 {
     <tr>
-    <td> - <a href="/Party/LeaderBoard/@party.Id">@party.Name</a> on @party.FormattedPartyDate</td>
+        <td> - <a href="/Party/LeaderBoard/@party.Id">@party.Name</a> on @party.FormattedPartyDate (quick alias <a href="/@party.Slug">/@party.Slug)</a></td>
     </tr> 
 }
 </table>
