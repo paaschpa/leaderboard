@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "List";
+}
+
+<div>
+    <a href="/Party/Create" class="btn btn-primary">New Party Leader Board</a>
+</div>
+
+<h1>My Parties</h1>
+<table>
+@foreach (var party in @Model)
+{
+    <tr>
+        <td> - <a href="/Party/LeaderBoard/@party.Id">@party.Name</a> on @party.FormattedPartyDate (quick alias <a href="/@party.Slug">/@party.Slug)</a></td>
+    </tr> 
+}
+</table>

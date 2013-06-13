@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script src='@Href("/Content/js/app/party.js")'></script>
+<div ng-app>
+    <div ng-controller="PartyCtrl">
+        <div id="error" class="hidden">
+            <p class="text-error">NOOOOOOOO! Something went wrong! <br/>
+                {{errorMsg}}
+            </p>
+        </div>
+        <form id="CreatePartyForm" class="form-stacked fade-when-loading">
+            <div class="clearfix">
+                <input class="input-medium" name="partyName" type="text" placeholder="Party Name" ng-model="partyName" /> 
+            </div>
+
+            <div class="clearfix">
+                <input class="input-medium" name="partyDate" type="text" placeholder="Party Date" ng-model="partyDate" />
+            </div>
+
+            <div class="clearfix">
+                <input class="input-medium" name="commissionerName" type="text" placeholder="Commissioner Name" ng-model="commissionerName" />
+            </div>
+            
+            <div class="input-append">
+                <input class="span3" type ="text" name="newPlayer" ng-model="newPlayerName" placeholder="Player Name"/>
+                <button class="btn btn-primary" ng-click="addPlayer(newPlayerName)" >Add Player</button>
+            </div>
+            <div>
+                Players
+            </div>
+            <div id="players">
+                <div class="row-fluid" ng-repeat="player in players">
+                    <div class="span2">{{player}}</div>
+                    <div class span="1"><a href="#" class="btn btn-mini"><i class="icon-remove" ng-click="removePlayer(player)"></i></a></div>
+                </div>
+            </div>
+            <p>&nbsp;</p>
+            <div class="actions">
+                <button class="btn btn-primary" type="submit" ng-click="createParty()">Create Party!</button>
+            </div>
+        </form> 
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <div id="CreationSuccess" class="hidden">Success Start</div>
+    </div>
+</div>

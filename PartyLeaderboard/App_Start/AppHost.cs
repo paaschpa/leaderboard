@@ -3,12 +3,14 @@ using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using PartyLeaderboard.Services;
+using PartyLeaderBoardServices;
+using ServiceStack.Authentication.OpenId;
 using ServiceStack.Configuration;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Mvc;
 using ServiceStack.OrmLite;
+using ServiceStack.Redis;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.ServiceInterface.ServiceModel;
@@ -22,7 +24,7 @@ namespace PartyLeaderboard.App_Start
 		: AppHostBase
 	{		
 		public AppHost() //Tell ServiceStack the name and where to find your web services
-			: base("StarterTemplate ASP.NET Host", typeof(ScoresService).Assembly) { }
+			: base("Party Leader Board", typeof(ScoresService).Assembly) { }
 
 		public override void Configure(Funq.Container container)
 		{
@@ -32,6 +34,23 @@ namespace PartyLeaderboard.App_Start
             var connectionString = ConfigurationManager.ConnectionStrings["conString"].ToString();
             Register<IDbConnectionFactory>(new OrmLiteConnectionFactory(connectionString, SqlServerDialect.Provider));
 
+		    var appSettings = new AppSettings();
+            Plugins.Add(new AuthFeature(() => new AuthUserSession(), new IAuthProvider[]
+                {
+                    new CredentialsAuthProvider(),
+                    new FacebookAuthProvider(appSettings), 
+                    new GoogleOpenIdOAuthProvider(appSettings), 
+                }));
+
+            Plugins.Add(new RegistrationFeature());
+
+            var userRep = new OrmLiteAuthRepository(container.Resolve<IDbConnectionFactory>());
+            container.Register<IUserAuthRepository>(userRep);
+            var redisCon = ConfigurationManager.AppSettings["redisUrl"].ToString();
+            container.Register<IRedisClientsManager>(new PooledRedisClientManager(20, 60, redisCon));
+            container.Register<ICacheClient>(c => (ICacheClient)c.Resolve<IRedisClientsManager>().GetCacheClient());
+
+            userRep.CreateMissingTables();
 			//Set MVC to use the same Funq IOC as ServiceStack
 			ControllerBuilder.Current.SetControllerFactory(new FunqControllerFactory(container));
 		}
