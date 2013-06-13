@@ -26,17 +26,9 @@ namespace PartyLeaderBoardServices
             if(request.CommissionerId.HasValue)
             { return DbConnExec<List<Party>>((con) => con.Select<Party>(x => x.CommissionerId == request.CommissionerId)); }
 
-            if (!String.IsNullOrEmpty(request.PartyName))
+            if (!String.IsNullOrEmpty(request.PartySlug))
             {
-                var versionIndex = request.PartyName.LastIndexOf("-");
-                var versionString = versionIndex > 0
-                                        ? request.PartyName.Substring(versionIndex,
-                                                                      request.PartyName.Length - versionIndex)
-                                        : "0";
-                int version = 0;
-                int.TryParse(versionString, out version);
- 
-                return DbConnExec<List<Party>>((con) => con.Select<Party>(x => x.Name == request.PartyName && x.Version == version));
+                return DbConnExec<List<Party>>((con) => con.Select<Party>(x => x.Slug == request.PartySlug));
             }
 
             return null;
@@ -52,8 +44,20 @@ namespace PartyLeaderBoardServices
         {
             var newParty = request.TranslateTo<Party>();
             var user = base.SessionAs<AuthUserSession>();
+            var version = 0;
             newParty.CommissionerId = int.Parse(user.UserAuthId);
             newParty.CommissionerName = request.CommissionerName ?? user.UserName;
+
+            var existingPartyWithName =
+                DbConnExec<Party>((con) => con.Select<Party>(x => x.Name == request.Name).OrderByDescending(x => x.Version).FirstOrDefault());
+
+            if (existingPartyWithName != null)
+            {
+                version = existingPartyWithName.Version + 1;
+                newParty.Version = version;
+            }
+
+            newParty.Slug = BuildSlug(newParty.Name, version);
             DbConnExecTransaction((con) =>
                 {
                     con.Insert<Party>(newParty);
@@ -65,6 +69,17 @@ namespace PartyLeaderBoardServices
                 });
 
             return newParty;
+        }
+
+        private string BuildSlug(string name, int version)
+        {
+            var slug = name.Replace(" ", "-");
+            if (version != 0)
+            {
+                slug += "-" + version.ToString();
+            }
+
+            return slug;
         }
     }
 }

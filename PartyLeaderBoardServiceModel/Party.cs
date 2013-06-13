@@ -17,6 +17,7 @@ namespace PartyLeaderBoardServiceModel
         public DateTime? PartyDate { get; set; }
         public int CommissionerId { get; set; }
         public string CommissionerName { get; set; }
+        public string Slug { get; set; }
 
         [Ignore]
         public String FormattedPartyDate

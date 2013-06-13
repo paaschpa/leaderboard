@@ -47,7 +47,7 @@ namespace PartyLeaderboard.Controllers
             }
             else
             {
-                request = new Parties() {PartyName = id};
+                request = new Parties() {PartySlug = id};
             }
 
             using (var service = AppHost.Resolve<PartyService>())
